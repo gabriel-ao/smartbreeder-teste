@@ -1,7 +1,9 @@
+import Routes from './routes/index';
+
 function App() {
   return (
     <h1>
-      <p>Smartbreeder</p>
+      <Routes />
     </h1>
   );
 }
