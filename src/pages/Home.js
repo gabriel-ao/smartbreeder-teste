@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
@@ -36,13 +36,28 @@ const useStyles = makeStyles({
     justifyContent: 'space-around',
   },
   subTitle: {
+    display: 'flex',
+    alignItems: 'baseline',
+    justifyContent: 'space-between',
     marginBottom: 12,
     fontSize: 20,
+    margin: 0,
   },
   subTitle2: {
     marginBottom: 12,
     fontSize: 20,
-    marginLeft: 200,
+    marginLeft: 100,
+    marginRight: 100,
+  },
+
+  lista: {
+    display: 'flex',
+    alignItems: 'baseline',
+    justifyContent: 'space-between',
+    marginBottom: 12,
+    fontSize: 20,
+    marginLeft: 30,
+    marginRight: 100,
   },
 
   divisor: {
@@ -52,15 +67,24 @@ const useStyles = makeStyles({
 
 function Home() {
   const classes = useStyles();
-  const bull = <span className={classes.bullet}>•</span>;
 
+  const [find, setFind] = useState('');
+
+  function HandleClickClearFind() {
+    setFind('');
+  }
   return (
     <Card className={classes.root}>
       <CardContent className={classes.title}>
         <Typography className={classes.pos}>Imagens</Typography>
         <div>
-          <TextField id='standard-basic' label='Procurar'></TextField>
-          <Button>
+          <TextField
+            id='standard-basic'
+            label='Procurar'
+            value={find}
+            onChange={(event) => setFind(event.target.value)}
+          ></TextField>
+          <Button onClick={() => HandleClickClearFind()}>
             <CloseIcon />
           </Button>
 
@@ -75,8 +99,9 @@ function Home() {
         <Typography className={classes.subTitle}>Titulo</Typography>
         <Typography className={classes.subTitle2}>IDImg</Typography>
       </CardContent>
+
       <div className={classes.divisor} />
-      <CardContent className={classes.title}>
+      <CardContent className={classes.lista}>
         <div>
           <Button>
             <CloseIcon />
@@ -86,8 +111,8 @@ function Home() {
             <AddBoxIcon />
           </Button>
         </div>
-        <Typography className={classes.subTitle}>titulo</Typography>
-        <Typography className={classes.subTitle2}>id</Typography>
+        <Typography className={classes.lista}>titulo</Typography>
+        <Typography className={classes.lista}>id</Typography>
       </CardContent>
     </Card>
   );
