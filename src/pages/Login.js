@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux';
 import { logIn } from '../store/actions/user';
 
 // import api from '../services/api';
+import login from '../assets/Login-bro.svg';
 
 import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
@@ -35,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'center',
     alignItems: 'center',
     height: '50vh',
-    paddingTop: '50px',
+    paddingTop: '30px',
     // backgroundColor: "green",
   },
 
@@ -60,7 +61,6 @@ function Login() {
       history.push('/home');
     } catch (err) {
       alert(err);
-      history.push('/login');
     }
   }
 
@@ -70,9 +70,13 @@ function Login() {
   }
 
   return (
-    <Container maxWidth='sm-12' className={classes.container}>
+    <Container className={classes.container}>
       <Grid item xs={12}>
         <div className={classes.dadosLogin}>
+          <Grid item xs={12} className={classes.login}>
+            <img height='400' width='500' src={login} alt='logo' />
+          </Grid>
+
           <Grid item xs={12} className={classes.div3}>
             <TextField
               className={classes.input}
@@ -84,7 +88,6 @@ function Login() {
               onChange={(event) => setEmail(event.target.value)}
             />
           </Grid>
-
           <Grid
             xs={12}
             className={classes.div3}
@@ -101,7 +104,6 @@ function Login() {
               onChange={(event) => setPassword(event.target.value)}
             />
           </Grid>
-
           <Grid item xs={12} className={classes.div3}>
             <Button
               variant='contained'

@@ -9,6 +9,7 @@ export default function user(state = [], action) {
           password: action.payload.password,
         },
       ];
+
     case 'LOGGED_IN':
       return state;
     case 'LOGIN_FAIL':

@@ -10,6 +10,8 @@ import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
 import TextField from '@material-ui/core/TextField';
 
+import login from '../assets/Subscriber-bro.svg';
+
 // mensagens de erro
 import 'react-toastify/dist/ReactToastify.css';
 import { toast } from 'react-toastify';
@@ -78,6 +80,9 @@ function RegisterUser() {
     <Container maxWidth='sm-12' className={classes.container}>
       <Grid item xs={12}>
         <div className={classes.dadosLogin}>
+          <Grid item xs={12} className={classes.login}>
+            <img height='400' width='500' src={login} alt='logo' />
+          </Grid>
           <Grid item xs={12} className={classes.div3}>
             <TextField
               className={classes.input}

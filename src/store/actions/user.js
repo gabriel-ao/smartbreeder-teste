@@ -1,27 +1,42 @@
+// mensagens de erro
+import 'react-toastify/dist/ReactToastify.css';
+import { toast } from 'react-toastify';
+
 let users = JSON.parse(localStorage.getItem('users')) || [];
 
 export function addUser(user) {
-  users.push(user);
-  localStorage.setItem('users', JSON.stringify(users));
+  let filteredUsers = users.filter((users) => {
+    return users.email === user.email && users.password === user.password;
+  });
+  console.log('filteredUsers.length', filteredUsers.length);
 
-  return {
-    type: 'ADD_USER',
-    payload: user,
-  };
+  if (filteredUsers.length === 0) {
+    users.push(user);
+    localStorage.setItem('users', JSON.stringify(users));
+
+    return {
+      type: 'ADD_USER',
+      payload: user,
+    };
+  }
+  console.log('filteredUsers.length', filteredUsers.length);
+
+  filteredUsers = 0;
+  toast.error('usuario existente');
+  return {};
 }
 
 export function logIn(user) {
   let filteredUsers = users.filter((users) => {
-    return users.username === user.username && users.password === user.password;
+    return users.email === user.email && users.password === user.password;
   });
 
   if (filteredUsers.length) {
     let user = filteredUsers[0];
 
-    console.log(' user', user);
-    localStorage.setItem('user', JSON.stringify(user));
+    localStorage.setItem('token', JSON.stringify(user));
   } else {
-    alert('usuario nao encontrado');
+    toast.error('usuario nao encontrado');
     return {
       type: 'LOGIN_FAIL',
     };
@@ -32,7 +47,8 @@ export function logIn(user) {
 }
 
 export function logOut() {
-  localStorage.removeItem('user');
+  localStorage.removeItem('token');
+  toast.success('Desconectado');
 
   return {
     type: 'LOGGED_OUT',
