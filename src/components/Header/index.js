@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -30,6 +30,18 @@ function Header({ children }) {
     dispatch(logOut());
     history.push('/login');
   }
+
+  async function verifyToken() {
+    const token = localStorage.getItem('token');
+
+    if (!token) {
+      history.push('/login');
+    }
+  }
+  useEffect(() => {
+    verifyToken();
+  }, []);
+
   return (
     <>
       <div className={classes.root}>
