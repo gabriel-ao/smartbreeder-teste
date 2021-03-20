@@ -28,14 +28,14 @@ function Header({ children }) {
 
   function handleLogout() {
     dispatch(logOut());
-    history.push('/login');
+    history.push('/');
   }
 
   async function verifyToken() {
     const token = localStorage.getItem('token');
 
     if (!token) {
-      history.push('/login');
+      history.push('/');
     }
   }
   useEffect(() => {

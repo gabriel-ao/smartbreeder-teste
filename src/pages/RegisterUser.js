@@ -65,7 +65,7 @@ function RegisterUser() {
       const user = { email, password };
       dispatch(addUser(user));
       toast.success('Cadastro realizado com sucesso');
-      history.push('/login');
+      history.push('/');
     } catch (err) {
       toast.error(err);
     }
@@ -73,7 +73,7 @@ function RegisterUser() {
 
   let history = useHistory();
   function ReturnLogin() {
-    history.push(`/login`);
+    history.push(`/`);
   }
 
   return (

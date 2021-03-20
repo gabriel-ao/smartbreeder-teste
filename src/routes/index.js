@@ -7,7 +7,7 @@ import RegisterUser from '../pages/RegisterUser';
 import Home from '../pages/Home';
 
 const ROUTES = {
-  LOGIN: '/login',
+  LOGIN: '/',
   REGISTERUSER: '/registerUser',
   HOME: '/home',
 };
@@ -32,7 +32,7 @@ export default function Routes() {
   return (
     <BrowserRouter>
       <Switch>
-        <Route path={ROUTES.LOGIN} component={Login} />
+        <Route path={ROUTES.LOGIN} exact component={Login} />
         <Route path={ROUTES.REGISTERUSER} component={RegisterUser} />
         <PrivateRoute path={ROUTES.HOME} component={Home} />
       </Switch>
