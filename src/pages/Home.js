@@ -7,8 +7,10 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import AddBoxIcon from '@material-ui/icons/AddBox';
 import CloseIcon from '@material-ui/icons/Close';
-
+import DoneIcon from '@material-ui/icons/Done';
 import TextField from '@material-ui/core/TextField';
+
+import './styles.css';
 
 const useStyles = makeStyles({
   root: {
@@ -57,11 +59,11 @@ const useStyles = makeStyles({
     marginBottom: 12,
     fontSize: 20,
     marginLeft: 30,
-    marginRight: 100,
+    marginRight: 10,
   },
 
   divisor: {
-    borderBottom: '1px solid #d8bfd8',
+    borderBottom: '1px solid #407BFF',
   },
 });
 
@@ -69,10 +71,21 @@ function Home() {
   const classes = useStyles();
 
   const [find, setFind] = useState('');
+  const [title, setTitle] = useState('');
+  const [id, setId] = useState('');
+  const [add, setAdd] = useState(false);
 
   function HandleClickClearFind() {
     setFind('');
   }
+  function HandleClickClearInputs() {
+    setTitle('');
+    setId('');
+  }
+  function HandleClickAdd() {
+    setAdd(true);
+  }
+
   return (
     <Card className={classes.root}>
       <CardContent className={classes.title}>
@@ -88,7 +101,7 @@ function Home() {
             <CloseIcon />
           </Button>
 
-          <Button>
+          <Button onClick={() => HandleClickAdd()}>
             <AddBoxIcon />
           </Button>
         </div>
@@ -101,19 +114,35 @@ function Home() {
       </CardContent>
 
       <div className={classes.divisor} />
-      <CardContent className={classes.lista}>
-        <div>
-          <Button>
-            <CloseIcon />
-          </Button>
 
-          <Button>
-            <AddBoxIcon />
-          </Button>
-        </div>
-        <Typography className={classes.lista}>titulo</Typography>
-        <Typography className={classes.lista}>id</Typography>
-      </CardContent>
+      <div className={`${add === false ? 'unShow' : 'show'}`}>
+        <CardContent className={classes.lista}>
+          <div>
+            <Button>
+              <DoneIcon />
+            </Button>
+
+            <Button>
+              <CloseIcon onClick={() => HandleClickClearInputs()} />
+            </Button>
+          </div>
+
+          <TextField
+            className={classes.lista}
+            id='standard-basic'
+            label='Titulo'
+            value={title}
+            onChange={(event) => setTitle(event.target.value)}
+          />
+          <TextField
+            className={classes.lista}
+            id='standard-basic'
+            label='ID'
+            value={id}
+            onChange={(event) => setId(event.target.value)}
+          />
+        </CardContent>
+      </div>
     </Card>
   );
 }
