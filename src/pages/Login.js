@@ -54,7 +54,6 @@ function Login() {
 
   const dispatch = useDispatch();
   async function handleLogon(e) {
-    // e.preventDefault();
     try {
       const user = { email, password };
       dispatch(logIn(user));

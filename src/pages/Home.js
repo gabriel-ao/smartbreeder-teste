@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
@@ -9,6 +8,14 @@ import AddBoxIcon from '@material-ui/icons/AddBox';
 import CloseIcon from '@material-ui/icons/Close';
 import DoneIcon from '@material-ui/icons/Done';
 import TextField from '@material-ui/core/TextField';
+
+import { useHistory } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { addImg } from '../store/actions/image';
+
+// mensagens de erro
+import 'react-toastify/dist/ReactToastify.css';
+import { toast } from 'react-toastify';
 
 import './styles.css';
 
@@ -69,6 +76,8 @@ const useStyles = makeStyles({
 
 function Home() {
   const classes = useStyles();
+  const dispatch = useDispatch();
+  let history = useHistory();
 
   const [find, setFind] = useState('');
   const [title, setTitle] = useState('');
@@ -84,6 +93,19 @@ function Home() {
   }
   function HandleClickAdd() {
     setAdd(true);
+  }
+  function HandleClickAddImg() {
+    const token = localStorage.getItem('token');
+
+    try {
+      const data_img = { token, title, id };
+
+      title === '' || id === ''
+        ? toast.warn('o campo de img e id são devem ser preenchidos')
+        : dispatch(addImg(data_img));
+    } catch (err) {
+      toast.error(err);
+    }
   }
 
   return (
@@ -115,10 +137,10 @@ function Home() {
 
       <div className={classes.divisor} />
 
-      <div className={`${add === false ? 'unShow' : 'show'}`}>
+      <div className={`${add === false ? 'hide' : 'show'}`}>
         <CardContent className={classes.lista}>
           <div>
-            <Button>
+            <Button onClick={() => HandleClickAddImg()}>
               <DoneIcon />
             </Button>
 

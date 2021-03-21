@@ -8,7 +8,6 @@ export function addUser(user) {
   let filteredUsers = users.filter((users) => {
     return users.email === user.email && users.password === user.password;
   });
-  console.log('filteredUsers.length', filteredUsers.length);
 
   if (filteredUsers.length === 0) {
     users.push(user);
@@ -19,7 +18,6 @@ export function addUser(user) {
       payload: user,
     };
   }
-  console.log('filteredUsers.length', filteredUsers.length);
 
   filteredUsers = 0;
   toast.error('usuario existente');
