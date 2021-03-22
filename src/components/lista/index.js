@@ -6,7 +6,7 @@ import TextField from '@material-ui/core/TextField';
 import DeleteIcon from '@material-ui/icons/Delete';
 
 import { useDispatch } from 'react-redux';
-import { deleteImg } from '../../store/actions/image';
+import { deleteImg, updateImg } from '../../store/actions/image';
 // import { bindActionCreators } from 'redux';
 // import { connect } from 'react-redux';
 // import * as imagesId from '../store/actions/image';
@@ -78,6 +78,12 @@ function Lista(images) {
     dispatch(deleteImg(id));
   }
 
+  function handleClickUpdate() {
+    const data_img = { listTitle, listId };
+
+    dispatch(updateImg(data_img));
+  }
+
   useEffect(() => {
     function getData() {
       setListTitles(title);
@@ -91,7 +97,7 @@ function Lista(images) {
       <div className={'show'}>
         <ul className={classes.lista}>
           <div>
-            <Button>
+            <Button onClick={() => handleClickUpdate()}>
               <DoneIcon />
             </Button>
 
@@ -108,6 +114,7 @@ function Lista(images) {
           />
 
           <TextField
+            disabled
             className={classes.lista}
             label='ID'
             value={listId}

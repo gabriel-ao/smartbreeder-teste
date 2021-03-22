@@ -103,10 +103,8 @@ function Home(props) {
     setAdd(true);
   }
   function HandleClickAddImg() {
-    const token = localStorage.getItem('token');
-
     try {
-      const data_img = { token, title, id };
+      const data_img = { title, id };
 
       title === '' || id === ''
         ? toast.warn('o campo de img e id são devem ser preenchidos')

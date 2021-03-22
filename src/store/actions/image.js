@@ -5,6 +5,13 @@ export function addImg(img) {
   };
 }
 
+export function updateImg(img) {
+  return {
+    type: 'UPDATE_IMG',
+    payload: img,
+  };
+}
+
 export function deleteImg(id) {
   return {
     type: 'DELETE_IMG',
