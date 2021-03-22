@@ -25,6 +25,8 @@ import * as imagesId from '../store/actions/image';
 
 import Lista from '../components/lista';
 
+import api from '../services/api';
+
 const useStyles = makeStyles({
   root: {
     minWidth: 275,
@@ -102,9 +104,12 @@ function Home(props) {
   function HandleClickAdd() {
     setAdd(true);
   }
-  function HandleClickAddImg() {
+  async function HandleClickAddImg() {
     try {
-      const data_img = { title, id };
+      const link = await api.get(`${id}`);
+      const foto = link.data.thumbnailUrl;
+
+      const data_img = { title, id, foto };
 
       title === '' || id === ''
         ? toast.warn('o campo de img e id são devem ser preenchidos')
@@ -147,6 +152,7 @@ function Home(props) {
 
         {/* listando todas imagens */}
         {console.log('props.imageReturn ', props.imageReturn)}
+
         {props.imageReturn.map((images) => (
           <Lista key={images.id} image={images} />
         ))}

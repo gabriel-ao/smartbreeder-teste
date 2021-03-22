@@ -7,9 +7,8 @@ import DeleteIcon from '@material-ui/icons/Delete';
 
 import { useDispatch } from 'react-redux';
 import { deleteImg, updateImg } from '../../store/actions/image';
-// import { bindActionCreators } from 'redux';
-// import { connect } from 'react-redux';
-// import * as imagesId from '../store/actions/image';
+
+import api from '../../services/api';
 
 const useStyles = makeStyles({
   root: {
@@ -60,6 +59,12 @@ const useStyles = makeStyles({
     marginRight: 10,
   },
 
+  foto: {
+    display: 'flex',
+    justifyContent: 'center',
+    margin: 6,
+  },
+
   divisor: {
     borderBottom: '1px solid #407BFF',
   },
@@ -72,14 +77,17 @@ function Lista(images) {
   const [listTitle, setListTitles] = useState('');
   const [listId, setListId] = useState('');
 
-  const { title, id } = images.image;
+  const { title, id, foto } = images.image;
 
   function handleClickDelete(id) {
     dispatch(deleteImg(id));
   }
 
-  function handleClickUpdate() {
-    const data_img = { listTitle, listId };
+  async function handleClickUpdate() {
+    const link = await api.get(`${listId}`);
+    const foto = link.data.thumbnailUrl;
+
+    const data_img = { listTitle, listId, foto };
 
     dispatch(updateImg(data_img));
   }
@@ -114,13 +122,15 @@ function Lista(images) {
           />
 
           <TextField
-            disabled
             className={classes.lista}
             label='ID'
             value={listId}
             onChange={(event) => setListId(event.target.value)}
           />
         </ul>
+        <div className={classes.foto}>
+          <img src={foto} alt='foto' />
+        </div>
         <div className={classes.divisor} />
       </div>
     </div>
