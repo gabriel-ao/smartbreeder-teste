@@ -77,7 +77,7 @@ function RegisterUser() {
   }
 
   return (
-    <Container maxWidth='sm-12' className={classes.container}>
+    <Container className={classes.container}>
       <Grid item xs={12}>
         <div className={classes.dadosLogin}>
           <Grid item xs={12} className={classes.login}>
@@ -96,6 +96,7 @@ function RegisterUser() {
           </Grid>
 
           <Grid
+            item
             xs={12}
             className={classes.div3}
             // style={{ paddingTop: "10px" }}

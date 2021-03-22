@@ -39,15 +39,15 @@ const useStyles = makeStyles({
     margin: '0 2px',
     transform: 'scale(0.8)',
   },
-  title: {
-    fontSize: 14,
-  },
+
   pos: {
     marginBottom: 12,
     fontSize: 24,
   },
 
   title: {
+    fontSize: 14,
+
     display: 'flex',
     alignItems: 'baseline',
     justifyContent: 'space-around',
@@ -176,6 +176,7 @@ function Home(props) {
               onChange={(event) => setTitle(event.target.value)}
             />
             <TextField
+              type='number'
               className={classes.lista}
               label='ID'
               value={id}

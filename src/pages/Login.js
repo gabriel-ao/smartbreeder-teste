@@ -80,7 +80,6 @@ function Login() {
             <TextField
               className={classes.input}
               required
-              id='outlined-required'
               variant='outlined'
               placeholder='Email'
               value={email}
@@ -95,7 +94,6 @@ function Login() {
             <TextField
               className={classes.input}
               required
-              id='outlined-required'
               variant='outlined'
               placeholder='senha'
               value={password}

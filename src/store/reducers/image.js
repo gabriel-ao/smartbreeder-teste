@@ -2,16 +2,13 @@ export default function image(state = [], action) {
   switch (action.type) {
     case 'ADD_IMG':
       console.log('action ', action);
-
-      // const test = state.map((foto) => foto.id === action.payload.id);
-
-      // console.log(test);
       return [
         ...state,
         {
+          id: Math.random(),
           foto: action.payload.foto,
           title: action.payload.title,
-          id: action.payload.id,
+          idFoto: action.payload.idFoto,
         },
       ];
 

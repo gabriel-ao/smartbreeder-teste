@@ -10,6 +10,8 @@ import { deleteImg, updateImg } from '../../store/actions/image';
 
 import api from '../../services/api';
 
+import imgDefault from '../../assets/AA_icon.png';
+
 const useStyles = makeStyles({
   root: {
     minWidth: 275,
@@ -21,15 +23,15 @@ const useStyles = makeStyles({
     margin: '0 2px',
     transform: 'scale(0.8)',
   },
-  title: {
-    fontSize: 14,
-  },
+
   pos: {
     marginBottom: 12,
     fontSize: 24,
   },
 
   title: {
+    fontSize: 14,
+
     display: 'flex',
     alignItems: 'baseline',
     justifyContent: 'space-around',
@@ -129,7 +131,7 @@ function Lista(images) {
           />
         </ul>
         <div className={classes.foto}>
-          <img src={foto} alt='foto' />
+          <img src={foto || imgDefault} alt='foto' />
         </div>
         <div className={classes.divisor} />
       </div>
