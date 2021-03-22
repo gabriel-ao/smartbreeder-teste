@@ -31,6 +31,10 @@ function Header({ children }) {
     history.push('/');
   }
 
+  function handleClickHome() {
+    history.push('/home');
+  }
+
   async function verifyToken() {
     const token = localStorage.getItem('token');
 
@@ -47,7 +51,11 @@ function Header({ children }) {
       <div className={classes.root}>
         <AppBar position='static'>
           <Toolbar>
-            <Typography variant='h6' className={classes.title}>
+            <Typography
+              variant='h6'
+              className={classes.title}
+              onClick={() => handleClickHome()}
+            >
               Smartbreeder
             </Typography>
             <Button color='inherit' onClick={() => handleLogout()}>

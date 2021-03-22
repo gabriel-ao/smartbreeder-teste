@@ -1,4 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+// import { useHistory } from 'react-router-dom';
+
+import './styles.css';
+
+// mensagens de erro
+import 'react-toastify/dist/ReactToastify.css';
+import { toast } from 'react-toastify';
+
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
@@ -9,15 +17,13 @@ import CloseIcon from '@material-ui/icons/Close';
 import DoneIcon from '@material-ui/icons/Done';
 import TextField from '@material-ui/core/TextField';
 
-import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { addImg } from '../store/actions/image';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import * as imagesId from '../store/actions/image';
 
-// mensagens de erro
-import 'react-toastify/dist/ReactToastify.css';
-import { toast } from 'react-toastify';
-
-import './styles.css';
+import Lista from '../components/lista';
 
 const useStyles = makeStyles({
   root: {
@@ -74,15 +80,16 @@ const useStyles = makeStyles({
   },
 });
 
-function Home() {
+function Home(props) {
   const classes = useStyles();
   const dispatch = useDispatch();
-  let history = useHistory();
+  // let history = useHistory();
 
   const [find, setFind] = useState('');
   const [title, setTitle] = useState('');
   const [id, setId] = useState('');
   const [add, setAdd] = useState(false);
+  // const [images, setImages] = useState([]);
 
   function HandleClickClearFind() {
     setFind('');
@@ -90,6 +97,7 @@ function Home() {
   function HandleClickClearInputs() {
     setTitle('');
     setId('');
+    setAdd(false);
   }
   function HandleClickAdd() {
     setAdd(true);
@@ -103,70 +111,85 @@ function Home() {
       title === '' || id === ''
         ? toast.warn('o campo de img e id são devem ser preenchidos')
         : dispatch(addImg(data_img));
+
+      setTitle('');
+      setId('');
+      setAdd(false);
     } catch (err) {
       toast.error(err);
     }
   }
 
   return (
-    <Card className={classes.root}>
-      <CardContent className={classes.title}>
-        <Typography className={classes.pos}>Imagens</Typography>
-        <div>
-          <TextField
-            id='standard-basic'
-            label='Procurar'
-            value={find}
-            onChange={(event) => setFind(event.target.value)}
-          ></TextField>
-          <Button onClick={() => HandleClickClearFind()}>
-            <CloseIcon />
-          </Button>
-
-          <Button onClick={() => HandleClickAdd()}>
-            <AddBoxIcon />
-          </Button>
-        </div>
-      </CardContent>
-
-      <CardContent className={classes.title}>
-        <Typography className={classes.subTitle}>Ações</Typography>
-        <Typography className={classes.subTitle}>Titulo</Typography>
-        <Typography className={classes.subTitle2}>IDImg</Typography>
-      </CardContent>
-
-      <div className={classes.divisor} />
-
-      <div className={`${add === false ? 'hide' : 'show'}`}>
-        <CardContent className={classes.lista}>
+    <>
+      <Card className={classes.root}>
+        <CardContent className={classes.title}>
+          <Typography className={classes.pos}>Imagens</Typography>
           <div>
-            <Button onClick={() => HandleClickAddImg()}>
-              <DoneIcon />
+            <TextField
+              label='Procurar'
+              value={find}
+              onChange={(event) => setFind(event.target.value)}
+            ></TextField>
+            <Button onClick={() => HandleClickClearFind()}>
+              <CloseIcon />
             </Button>
 
-            <Button>
-              <CloseIcon onClick={() => HandleClickClearInputs()} />
+            <Button onClick={() => HandleClickAdd()}>
+              <AddBoxIcon />
             </Button>
           </div>
-
-          <TextField
-            className={classes.lista}
-            id='standard-basic'
-            label='Titulo'
-            value={title}
-            onChange={(event) => setTitle(event.target.value)}
-          />
-          <TextField
-            className={classes.lista}
-            id='standard-basic'
-            label='ID'
-            value={id}
-            onChange={(event) => setId(event.target.value)}
-          />
         </CardContent>
-      </div>
-    </Card>
+        <CardContent className={classes.title}>
+          <Typography className={classes.subTitle}>Ações</Typography>
+          <Typography className={classes.subTitle}>Titulo</Typography>
+          <Typography className={classes.subTitle2}>IDImg</Typography>
+        </CardContent>
+        <div className={classes.divisor} />
+
+        {/* listando todas imagens */}
+        {console.log('props.imageReturn ', props.imageReturn)}
+        {props.imageReturn.map((images) => (
+          <Lista key={images.id} image={images} />
+        ))}
+
+        <div className={`${add === false ? 'hide' : 'show'}`}>
+          <CardContent className={classes.lista}>
+            <div>
+              <Button onClick={() => HandleClickAddImg()}>
+                <DoneIcon />
+              </Button>
+
+              <Button>
+                <CloseIcon onClick={() => HandleClickClearInputs()} />
+              </Button>
+            </div>
+
+            <TextField
+              className={classes.lista}
+              label='Titulo'
+              value={title}
+              onChange={(event) => setTitle(event.target.value)}
+            />
+            <TextField
+              className={classes.lista}
+              label='ID'
+              value={id}
+              onChange={(event) => setId(event.target.value)}
+            />
+          </CardContent>
+        </div>
+      </Card>
+    </>
   );
 }
 
-export default Home;
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators(imagesId, dispatch);
+};
+
+const mapStateToProps = (state) => ({
+  imageReturn: state.image,
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home);
