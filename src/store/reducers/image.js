@@ -12,12 +12,13 @@ export default function image(state = [], action) {
 
     case 'UPDATE_IMG':
       const updated = state.map(function (stt) {
-        return {
-          ...stt,
-          title: action.payload.listTitle,
-          id: action.payload.listId,
-          foto: action.payload.foto,
-        };
+        if (stt.id === action.payload.listId) {
+          return {
+            ...stt,
+            title: action.payload.listTitle,
+          };
+        }
+        return stt;
       });
 
       state = updated;

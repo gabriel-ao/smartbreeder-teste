@@ -149,7 +149,6 @@ function Home(props) {
 
         {/* listando todas imagens */}
         {/* {console.log('props.imageReturn ', props.imageReturn)} */}
-
         {props.imageReturn.map((images) => (
           <Lista key={images.id} image={images} />
         ))}

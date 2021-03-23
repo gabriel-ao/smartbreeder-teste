@@ -132,6 +132,7 @@ function Lista(images) {
           />
 
           <TextField
+            disabled
             className={classes.lista}
             label='ID'
             value={listId}
