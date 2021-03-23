@@ -1,4 +1,9 @@
 import React, { useState, useEffect } from 'react';
+
+// mensagens de erro
+import 'react-toastify/dist/ReactToastify.css';
+import { toast } from 'react-toastify';
+
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import DoneIcon from '@material-ui/icons/Done';
@@ -9,8 +14,6 @@ import { useDispatch } from 'react-redux';
 import { deleteImg, updateImg } from '../../store/actions/image';
 
 import api from '../../services/api';
-
-import imgDefault from '../../assets/AA_icon.png';
 
 const useStyles = makeStyles({
   root: {
@@ -81,17 +84,22 @@ function Lista(images) {
 
   const { title, id, foto } = images.image;
 
-  function handleClickDelete(id) {
-    dispatch(deleteImg(id));
+  function handleClickDelete(id, title) {
+    const data_delete = { id, title };
+    dispatch(deleteImg(data_delete));
   }
 
   async function handleClickUpdate() {
-    const link = await api.get(`${listId}`);
-    const foto = link.data.thumbnailUrl;
+    try {
+      const link = await api.get(`${listId}`);
+      const foto = link.data.thumbnailUrl;
 
-    const data_img = { listTitle, listId, foto };
+      const data_img = { listTitle, listId, foto };
 
-    dispatch(updateImg(data_img));
+      dispatch(updateImg(data_img));
+    } catch (err) {
+      toast.error('Id deve ser um valor unico e ser de 0 a 5000');
+    }
   }
 
   useEffect(() => {
@@ -100,7 +108,7 @@ function Lista(images) {
       setListId(id);
     }
     getData();
-  }, []);
+  }, [id, title]);
 
   return (
     <div className={classes.root}>
@@ -111,7 +119,7 @@ function Lista(images) {
               <DoneIcon />
             </Button>
 
-            <Button onClick={() => handleClickDelete(id)}>
+            <Button onClick={() => handleClickDelete(id, title)}>
               <DeleteIcon />
             </Button>
           </div>
@@ -131,7 +139,7 @@ function Lista(images) {
           />
         </ul>
         <div className={classes.foto}>
-          <img src={foto || imgDefault} alt='foto' />
+          <img src={foto} alt='foto' />
         </div>
         <div className={classes.divisor} />
       </div>

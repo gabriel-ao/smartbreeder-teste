@@ -4,7 +4,6 @@ import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { logIn } from '../store/actions/user';
 
-// import api from '../services/api';
 import login from '../assets/Login-bro.svg';
 
 import Button from '@material-ui/core/Button';
@@ -14,8 +13,9 @@ import TextField from '@material-ui/core/TextField';
 const useStyles = makeStyles((theme) => ({
   container: {
     display: 'flex',
+    justifyContent: 'center',
     flexDirection: 'row',
-    height: '120vh',
+    margin: 'auto',
   },
   root: {
     '& > *': {
@@ -37,7 +37,6 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     height: '50vh',
     paddingTop: '30px',
-    // backgroundColor: "green",
   },
 
   RegisterUser: { display: 'flex', justifyContent: 'center', height: '50vh' },
@@ -70,7 +69,7 @@ function Login() {
 
   return (
     <Container className={classes.container}>
-      <Grid item xs={12}>
+      <Grid item xs={6}>
         <div className={classes.dadosLogin}>
           <Grid item xs={12} className={classes.login}>
             <img height='400' width='500' src={login} alt='logo' />
@@ -78,6 +77,7 @@ function Login() {
 
           <Grid item xs={12} className={classes.div3}>
             <TextField
+              fullWidth
               className={classes.input}
               required
               variant='outlined'
@@ -86,12 +86,9 @@ function Login() {
               onChange={(event) => setEmail(event.target.value)}
             />
           </Grid>
-          <Grid
-            xs={12}
-            className={classes.div3}
-            // style={{ paddingTop: "10px" }}
-          >
+          <Grid item xs={12} className={classes.div3}>
             <TextField
+              fullWidth
               className={classes.input}
               required
               variant='outlined'
@@ -122,5 +119,3 @@ function Login() {
 }
 
 export default Login;
-
-// style={{ backgroundColor: "black" }}

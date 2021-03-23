@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from 'react';
-// import { useHistory } from 'react-router-dom';
+import React, { useState } from 'react';
 
 import './styles.css';
 
@@ -85,13 +84,11 @@ const useStyles = makeStyles({
 function Home(props) {
   const classes = useStyles();
   const dispatch = useDispatch();
-  // let history = useHistory();
 
   const [find, setFind] = useState('');
   const [title, setTitle] = useState('');
   const [id, setId] = useState('');
   const [add, setAdd] = useState(false);
-  // const [images, setImages] = useState([]);
 
   function HandleClickClearFind() {
     setFind('');
@@ -119,7 +116,7 @@ function Home(props) {
       setId('');
       setAdd(false);
     } catch (err) {
-      toast.error(err);
+      toast.error('Id deve ser um valor unico e ser de 0 a 5000');
     }
   }
 
@@ -151,7 +148,7 @@ function Home(props) {
         <div className={classes.divisor} />
 
         {/* listando todas imagens */}
-        {console.log('props.imageReturn ', props.imageReturn)}
+        {/* {console.log('props.imageReturn ', props.imageReturn)} */}
 
         {props.imageReturn.map((images) => (
           <Lista key={images.id} image={images} />

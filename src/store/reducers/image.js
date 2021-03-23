@@ -1,14 +1,12 @@
 export default function image(state = [], action) {
   switch (action.type) {
     case 'ADD_IMG':
-      console.log('action ', action);
       return [
         ...state,
         {
-          id: Math.random(),
           foto: action.payload.foto,
           title: action.payload.title,
-          idFoto: action.payload.idFoto,
+          id: action.payload.id,
         },
       ];
 
@@ -25,7 +23,9 @@ export default function image(state = [], action) {
       state = updated;
       return state;
     case 'DELETE_IMG':
-      const newState = state.filter((stt) => stt.id !== action.payload);
+      const newState = state.filter(
+        (stt) => stt.id !== action.payload.id && stt.title !== action.payload.id
+      );
       state = newState;
       return state;
     default:

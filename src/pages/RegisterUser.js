@@ -4,8 +4,6 @@ import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { addUser } from '../store/actions/user';
 
-// import api from '../services/api';
-
 import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
 import TextField from '@material-ui/core/TextField';
@@ -16,11 +14,13 @@ import login from '../assets/Subscriber-bro.svg';
 import 'react-toastify/dist/ReactToastify.css';
 import { toast } from 'react-toastify';
 
+import validator from 'email-validator';
+
 const useStyles = makeStyles((theme) => ({
   container: {
     display: 'flex',
     flexDirection: 'row',
-    height: '120vh',
+    justifyContent: 'center',
   },
   root: {
     '& > *': {
@@ -42,7 +42,6 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     height: '50vh',
     paddingTop: '50px',
-    // backgroundColor: "green",
   },
 
   cadastrar: { display: 'flex', justifyContent: 'center', height: '50vh' },
@@ -62,7 +61,9 @@ function RegisterUser() {
 
   async function handleRegister() {
     try {
-      const user = { email, password };
+      const user = validationData(email, password);
+
+      console.log(user);
       dispatch(addUser(user));
       toast.success('Cadastro realizado com sucesso');
       history.push('/');
@@ -76,32 +77,43 @@ function RegisterUser() {
     history.push(`/`);
   }
 
+  function validationData(email, password) {
+    if (password.length < 6) {
+      toast.error('a senha deve ter pelomenos 6 digitos');
+    }
+
+    if (!validator.validate(email)) {
+      toast.error('Para logar deve ser um tipo de email valido');
+    }
+
+    if (password.length > 6 && validator.validate(email))
+      return { password, email };
+  }
+
   return (
     <Container className={classes.container}>
-      <Grid item xs={12}>
+      <Grid item xs={6}>
         <div className={classes.dadosLogin}>
           <Grid item xs={12} className={classes.login}>
             <img height='400' width='500' src={login} alt='logo' />
           </Grid>
           <Grid item xs={12} className={classes.div3}>
             <TextField
+              fullWidth
               className={classes.input}
               required
               id='outlined-required'
               variant='outlined'
               placeholder='Email'
+              type='email'
               value={email}
               onChange={(event) => setEmail(event.target.value)}
             />
           </Grid>
 
-          <Grid
-            item
-            xs={12}
-            className={classes.div3}
-            // style={{ paddingTop: "10px" }}
-          >
+          <Grid item xs={12} className={classes.div3}>
             <TextField
+              fullWidth
               className={classes.input}
               required
               id='outlined-required'
@@ -134,5 +146,3 @@ function RegisterUser() {
 }
 
 export default RegisterUser;
-
-// style={{ backgroundColor: "black" }}

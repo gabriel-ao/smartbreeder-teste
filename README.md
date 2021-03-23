@@ -24,3 +24,5 @@ https://youtu.be/vLnoY9RfNsU
 Os códigos fontes devem estar hospedados em alguma plataforma de gerenciamento de código ex: GitHub.
 
 Obs: Este teste aplicamos para candidatos de vários níveis de experiencia, então caso não consiga fazer algum item não tem problema, faça o melhor que você puder!
+
+link deploy: http://smartbreeder-test.surge.sh/
