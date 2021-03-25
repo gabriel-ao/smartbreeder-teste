@@ -12,8 +12,6 @@ export default function user(state = [], action) {
 
     case 'LOGGED_IN':
       return state;
-    case 'LOGIN_FAIL':
-      return {};
     case 'LOGGED_OUT':
       return {};
     default:

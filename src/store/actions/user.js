@@ -33,9 +33,6 @@ export function logIn(user) {
     localStorage.setItem('token', JSON.stringify(user));
   } else {
     toast.error('usuario nao encontrado');
-    return {
-      type: 'LOGIN_FAIL',
-    };
   }
   return {
     type: 'LOGGED_IN',
