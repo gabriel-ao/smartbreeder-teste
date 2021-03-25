@@ -62,9 +62,12 @@ function RegisterUser() {
   async function handleRegister() {
     try {
       const user = validationData(email, password);
-      dispatch(addUser(user));
-      toast.success('Cadastro realizado com sucesso');
-      history.push('/');
+
+      if (user) {
+        dispatch(addUser(user));
+        toast.success('Cadastro realizado com sucesso');
+        history.push('/');
+      }
     } catch (err) {
       toast.error(err);
     }

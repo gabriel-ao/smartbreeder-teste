@@ -12,7 +12,6 @@ export function addUser(user) {
   if (filteredUsers.length === 0) {
     users.push(user);
     localStorage.setItem('users', JSON.stringify(users));
-
     return {
       type: 'ADD_USER',
       payload: user,
@@ -21,7 +20,6 @@ export function addUser(user) {
 
   filteredUsers = 0;
   toast.error('usuario existente');
-  return {};
 }
 
 export function logIn(user) {
